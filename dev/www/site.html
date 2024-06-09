@@ -1,0 +1,105 @@
+﻿<html>
+ <head>
+  <title>RamBot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+      <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+
+
+        <script>
+                var panCenter = -50;
+                var tiltCenter = 10;
+                
+                function activate(action, movement)  {
+                //        document.write("rambot.php?action=" + action + "&movement=" + movement);
+                        xmlhttp = new XMLHttpRequest();
+                        xmlhttp.open("GET","cgi-bin/rambot.py?action=" + action + "&movement=" + movement,true);
+                        xmlhttp.send();
+                        
+                        if(action=="startstream" || action=="stopstream") {
+                                setTimeout('location.reload()', 5000);
+                        }
+                }
+                
+                function centerView() {
+                        document.getElementById('panslider').value = panCenter;
+                        document.getElementById('tiltslider').value = tiltCenter;
+                        activate("pan", panCenter);
+                        activate("tilt", tiltCenter);
+                }
+                                
+        </script>
+                
+        </head>
+        
+        <body onload="centerView()">
+
+
+                <div class="container">
+                
+                        <div class="hero-unit">
+                    <h1>RamBot</h1>
+                    <p>A paranoia project by Ramón Arellano.</p>
+                    <p><a href="javascript:void(0)" onclick="activate('startstream', '0')" class="btn btn-primary btn-large">Start Stream</a>
+                    <a href="javascript:void(0)" onclick="activate('stopstream', '0')" class="btn btn-primary btn-large">Stop Stream</a>
+                    <a href="cgi-bin/rambot.py?action=shutdown&movement=0" class="btn btn-primary btn-large">Shutdown RamBot</a>
+                    </p>
+                  </div>
+                
+                        <div align="center">
+                                 <table>
+                                         <tr>
+                                                 <td></td>
+                                                 <td align="center">Turn&nbsp;&nbsp;&nbsp;
+                                                         <a href="javascript:void(0)" onclick="activate('turn', '-180')">-180&deg;</a>&nbsp;&nbsp;&nbsp;
+                                                         <a href="javascript:void(0)" onclick="activate('turn', '-90')">-90&deg;</a>&nbsp;&nbsp;&nbsp;
+                                                         <a href="javascript:void(0)" onclick="activate('turn', '-45')">-45&deg;</a>&nbsp;&nbsp;&nbsp;
+                                                         <a href="javascript:void(0)" onclick="activate('turn', '-20')">-20&deg;</a>&nbsp;&nbsp;&nbsp;
+                                                         <a href="javascript:void(0)" onclick="activate('turn', '-10')">-10&deg;</a>&nbsp;&nbsp;&nbsp;
+                                                         <a href="javascript:void(0)" onclick="activate('turn', '-5')">-5&deg;</a>&nbsp;&nbsp;&nbsp;
+                                                         <a href="javascript:void(0)" onclick="activate('turn', '5')">5&deg;</a>&nbsp;&nbsp;&nbsp;
+                                                         <a href="javascript:void(0)" onclick="activate('turn', '10')">10&deg;</a>&nbsp;&nbsp;&nbsp;
+                                                         <a href="javascript:void(0)" onclick="activate('turn', '20')">20&deg;</a>&nbsp;&nbsp;&nbsp;
+                                                         <a href="javascript:void(0)" onclick="activate('turn', '45')">45&deg;</a>&nbsp;&nbsp;&nbsp;
+                                                         <a href="javascript:void(0)" onclick="activate('turn', '90')">90&deg;</a>&nbsp;&nbsp;&nbsp;
+                                                         <a href="javascript:void(0)" onclick="activate('turn', '180')">180&deg;</a>
+                                                 </td>
+                                         </tr>
+                                         <tr>
+                                                 <td align="right">Move<br /><br/>
+                                                         <a href="javascript:void(0)" onclick="activate('move', '200')">200cm</a><br/><br/>
+                                                         <a href="javascript:void(0)" onclick="activate('move', '100')">100cm</a><br/><br/>
+                                                         <a href="javascript:void(0)" onclick="activate('move', '50')">50cm</a><br/><br/>
+                                                         <a href="javascript:void(0)" onclick="activate('move', '20')">20cm</a><br/><br/>
+                                                         <a href="javascript:void(0)" onclick="activate('move', '-20')">-20cm</a><br/><br/>
+                                                         <a href="javascript:void(0)" onclick="activate('move', '-50')">-50cm</a><br/><br/>
+                                                         <a href="javascript:void(0)" onclick="activate('move', '-100')">-100cm</a><br/><br/>
+                                                         <a href="javascript:void(0)" onclick="activate('move', '-200')">-200cm</a><br/><br/>
+                                                 </td>
+                                                 <td align="center" width="660">
+                                                         <!--iframe width="640" height="480" src="http://ramon.is-a-geek.net:8080/?action=stream">Video</iframe-->
+                                                         <img src="http://ramon.is-a-geek.net:8080/?action=stream" />
+                                                 </td>
+                                                 <td>Tilt camera<br /><br /><input type="range" id="tiltslider" min="-50" max="50" onMouseUp="activate('tilt', this.value)" onTouchEnd="activate('tilt', this.value)" style="width: 80px; height: 440px; -webkit-appearance: slider-vertical;"></td>
+                                         </tr>
+                                         <tr>
+                                                 <td></td>
+                                                 <td>
+                                                         <table width="100%"><tr><td>&nbsp;&nbsp;&nbsp;Pan camera</td>
+                                                                         <td align="right"><input type="range" id="panslider" min="-80" max="80" onMouseUp="activate('pan', this.value)" onTouchEnd="activate('pan', this.value)" style="width: 400px; height: 40px;">&nbsp;&nbsp;&nbsp;</td>
+                                                         </tr></table>
+                                                 </td>
+                                                <td><a href="javascript:void(0)" onclick="centerView();" class="btn btn-primary btn-medium">Center</a></td>
+                                        </tr>
+                        </table>
+                        </div>                        
+                
+                </div>
+ </body>
+</html>
