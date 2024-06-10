@@ -1,55 +1,28 @@
-#include <stdlib.h>
 #include <stdio.h>
-// Handles input and output
-#include <iostream>
- 
-// For delay function
-#include <chrono> 
- 
-// Handles threads of program execution
-#include <thread>
- 
-// Signal handling
-#include <signal.h>
-// Signal handling
-#include <JetsonGPIO.h>
-#include <unistd.h>
+#include <wiringPi.h>
 
+//install WiringPi
 
-int motorA_1 = 37;
-int motorA_2 = 35;
-int motorB_1 = 33;
-int motorB_2 = 31;
-
-//         avant
-//gauche A tank B droite
-//        arriere
+#define motorA_1 0
+#define motorA_2 1
+#define motorB_1 2
+#define motorB_2 3
 
 
 void avancer(){
-    GPIO::output(motorA_1, GPIO::HIGH);
-    GPIO::output(motorB_1, GPIO::HIGH);
-    GPIO::output(motorA_2, GPIO::LOW);
-    GPIO::output(motorB_2, GPIO::LOW);
+    digitalWrite (motorA_1, HIGH);
+    digitalWrite (motorB_1, HIGH);
+    digitalWrite (motorA_2, LOW);
+    digitalWrite (motorB_2, LOW);
 }
 
-int main( int argc, char** argv ) {
-GPIO::setmode(GPIO::BOARD);
-  GPIO::setup(motorA_1, GPIO::OUT, GPIO::LOW);
-  GPIO::setup(motorA_2, GPIO::OUT, GPIO::LOW);
-  GPIO::setup(motorB_1, GPIO::OUT, GPIO::LOW);
-  GPIO::setup(motorB_2, GPIO::OUT, GPIO::LOW);
-GPIO::setup(7, GPIO::OUT, GPIO::LOW);
-printf( "Content-Type: text/plain\n" );
-printf( "\n" );
-char* query = getenv( "QUERY_STRING" );
+void main(){
+wiringPiSetup () ;
+pinMode (motorA_1, OUTPUT) ;
+pinMode (motorA_2, OUTPUT) ;
+pinMode (motorB_1, OUTPUT) ;
+pinMode (motorB_2, OUTPUT) ;
 
 avancer();
-int truc = 0;
-GPIO::output(7, GPIO::HIGH);
-while(truc <= 1000000000){
-truc+=1;
-}
-GPIO::output(7, GPIO::LOW);
-return 0;
+
 }
